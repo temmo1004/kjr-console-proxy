@@ -1,0 +1,15 @@
+{
+	admin off
+	auto_https off
+}
+
+:{$PORT:8080} {
+	encode gzip
+	reverse_proxy https://basidemac-mini.tail571da9.ts.net {
+		header_up Host basidemac-mini.tail571da9.ts.net
+		transport http {
+			tls
+			tls_server_name basidemac-mini.tail571da9.ts.net
+		}
+	}
+}
