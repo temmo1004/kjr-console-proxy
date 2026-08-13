@@ -11,5 +11,8 @@
 			tls
 			tls_server_name basidemac-mini.tail571da9.ts.net
 		}
+		lb_try_duration 10s
+		lb_try_interval 500ms
+		fail_duration 3s
 	}
 }
