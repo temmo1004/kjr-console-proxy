@@ -7,6 +7,7 @@
 	encode gzip
 	reverse_proxy https://basidemac-mini.tail571da9.ts.net {
 		header_up Host basidemac-mini.tail571da9.ts.net
+		header_up X-Forwarded-Host {host}   # 車39b:原始 Host 供 kernel 做舊域 301/canonical(Caddy 預設不帶 XFH)
 		header_up X-Real-Client-IP {http.request.header.X-Forwarded-For}
 		transport http {
 			tls
