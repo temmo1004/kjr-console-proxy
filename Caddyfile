@@ -5,6 +5,10 @@
 
 :{$PORT:8080} {
 	encode gzip
+	# 舊域 301 在邊緣做:Funnel 中段會蓋掉 X-Forwarded-Host,kernel 收不到原始 Host(車40 實測)。
+	# 只轉根域,api.hakkaren.uk 是 LINE/擴充通道不動。
+	@oldhost host hakkaren.uk www.hakkaren.uk
+	redir @oldhost https://kejiaren.tw{uri} 301
 	reverse_proxy https://basidemac-mini.tail571da9.ts.net {
 		header_up Host basidemac-mini.tail571da9.ts.net
 		header_up X-Forwarded-Host {host}   # 車39b:原始 Host 供 kernel 做舊域 301/canonical(Caddy 預設不帶 XFH)
